@@ -4,6 +4,7 @@ A full-stack authentication system built with the MERN stack (MongoDB, Express, 
 
 
 Learned from - Codesistency: Watch tutorial- https://www.youtube.com/watch?v=pmvEgZC55Cg
+Thanks to him, now I know how Authentication works.
 
 ## Features
 

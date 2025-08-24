@@ -1,6 +1,9 @@
-# MERN Authentication - Codesistency
+# MERN Authentication System
 
 A full-stack authentication system built with the MERN stack (MongoDB, Express, React, Node.js) featuring multi-factor authentication (MFA), email verification, password reset, and more. This project demonstrates secure user management and modern UI/UX best practices.
+
+
+Learned from - Codesistency: Watch tutorial- https://www.youtube.com/watch?v=pmvEgZC55Cg
 
 ## Features
 

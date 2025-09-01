@@ -14,6 +14,7 @@
   import ResetPasswordPage from "./pages/ResetPasswordPage";
   import SetupMFAPage from "./pages/SetupMFAPage";
   import MFALoginPage from "./pages/MFALoginPage.JSX";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 
@@ -137,6 +138,8 @@ const ProtectedRoute = ({ children }) => {
               }
             />
             <Route path="/mfa-login" element={<MFALoginPage />} />
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </AnimatePresence>
       

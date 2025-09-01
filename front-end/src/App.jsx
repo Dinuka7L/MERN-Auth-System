@@ -1,22 +1,21 @@
-  import FloatingShape from "./components/floatingShape";
-  import {Routes, Route, Navigate} from 'react-router-dom'
-  import SignUpPage from "./pages/signUpPage";
-  import LoginPage from "./pages/loginPage";
-  import VerifyEmailPage from "./pages/VerifyEmailPage";
-  import DashboardPage from "./pages/DashboardPage";
-  import { AnimatePresence } from "framer-motion";
-  import { Toaster } from "react-hot-toast";
-  import ForgotPasswordPage from "./pages/ForgotPasswordPage";
-  import { useAuthStore } from "./store/authStore";
-  import { useEffect } from "react";
-  import LoadingSpinner from "./components/LoadingSpinner";
-  import MySpacePage from "./pages/MySpacePage";
-  import ResetPasswordPage from "./pages/ResetPasswordPage";
-  import SetupMFAPage from "./pages/SetupMFAPage";
-  import MFALoginPage from "./pages/MFALoginPage.JSX";
+import FloatingShape from "./components/floatingShape";
+import {Routes, Route, Navigate} from 'react-router-dom'
+import SignUpPage from "./pages/signUpPage";
+import LoginPage from "./pages/loginPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
+import DashboardPage from "./pages/DashboardPage";
+import { AnimatePresence } from "framer-motion";
+import { Toaster } from "react-hot-toast";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import { useAuthStore } from "./store/authStore";
+import LoadingSpinner from "./components/LoadingSpinner";
+import MySpacePage from "./pages/MySpacePage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
+import SetupMFAPage from "./pages/SetupMFAPage";
+import MFALoginPage from "./pages/MFALoginPage.JSX";
 import NotFoundPage from "./pages/NotFoundPage";
-
-
+import OfflinePage from "./pages/OfflinePage";
+import { useState, useEffect } from "react";
 
   // Protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -61,17 +60,36 @@ const ProtectedRoute = ({ children }) => {
 
 
   function App() {
-    const { isCheckingAuth, isAuthenticated, user, mfaPending, checkAuth } = useAuthStore();
+  const { isCheckingAuth, isAuthenticated, user, mfaPending, checkAuth } = useAuthStore();
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [firstLoad, setFirstLoad] = useState(true); // detect first render
 
-    useEffect(() => {
-      checkAuth();
-    }, [checkAuth]);
+  // Hooks are always called
+  useEffect(() => {
+    const goOnline = () => setIsOnline(true);
+    const goOffline = () => setIsOnline(false);
+    
 
-    useEffect(() => {
+    window.addEventListener("online", goOnline);
+    window.addEventListener("offline", goOffline);
+
+    return () => {
+      window.removeEventListener("online", goOnline);
+      window.removeEventListener("offline", goOffline);
+    };
+  }, []);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  useEffect(() => {
     window.history.replaceState(null, "", window.location.href);
   }, []);
 
-    if (isCheckingAuth) return <LoadingSpinner />;
+  // Conditional render **after all hooks**
+  if (!isOnline) return <OfflinePage />;
+  if (isCheckingAuth) return <LoadingSpinner />;
 
     console.log("isAuthenticated check at app func", isAuthenticated);
     console.log("User stats at app func", user);

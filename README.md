@@ -54,7 +54,7 @@ MERN Authentication -Codesistency/
 
 1. **Clone the repository:**
    ```powershell
-   git clone <repo-url>
+   git clone https://github.com/Dinuka7L/MERN-Auth-System
    cd "MERN Authentication -Codesistency"
    ```
 

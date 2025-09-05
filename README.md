@@ -71,14 +71,18 @@ MERN Authentication -Codesistency/
      ```
 
 3. **Configure Environment Variables:**
-   - Create `.env` files in `back-end/` and `front-end/` as needed.
+   - Create `.env` file in master directory.
    - Example for backend:
      ```env
      MONGO_URI=your_mongodb_uri
-     JWT_SECRET=your_jwt_secret
-     EMAIL_USER=your_email_user
-     EMAIL_PASS=your_email_password
+     PORT=5000
+     NODE_ENV=development
      CLIENT_URL=http://localhost:5173
+     JWT_SECRET=your_jwt_secret
+     GMAIL_USER=your_email_user
+     GMAIL_APP_PASSWORD=your_email_password
+     GOOGLE_CLIENT_ID=http://localhost:5173
+     GOOGLE_CLIENT_SECRET=string
      ```
 
 4. **Start the servers:**
